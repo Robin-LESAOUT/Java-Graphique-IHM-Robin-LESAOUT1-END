@@ -21,11 +21,15 @@ public class fileReader {
 
                 String[] array = line.split(",");
 
-                //get the latitude
-                int lat = Integer.parseInt(array[0]);
+                    //get the latitude
+                    int id = Integer.parseInt(array[0]);
 
-                //get the longitude
-                int lon = Integer.parseInt(array[1]);
+                    //get the longitudes
+                    int lon = Integer.parseInt(array[1],10);
+
+                    //envoi de mes datas vers les classes
+                    coord.add(id);
+                    coord.add(lon);
 
                 //creation array;
                 ArrayList<Float> val = new ArrayList<Float>();
@@ -37,10 +41,6 @@ public class fileReader {
                         anomalies.add(val);
                     }
                 }
-
-                //envoi de mes datas vers les classes
-                coord.add(lat);
-                coord.add(lon);
 
                 line = bufRead.readLine();
             }
