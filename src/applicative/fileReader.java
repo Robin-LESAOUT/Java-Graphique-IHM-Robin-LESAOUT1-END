@@ -39,9 +39,13 @@ public class fileReader {
                 for (int i=2 ; i<=142 ; i++) {
                     if(array[i].equals("NA")==false) {
                         val.add(Float.parseFloat(array[i]));
-                        anomalies.add(val);
+                    }
+                    else {
+                        val.add(Float.NaN);
                     }
                 }
+
+                anomalies.add(val);
 
                 line = bufRead.readLine();
             }
