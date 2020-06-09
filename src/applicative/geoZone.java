@@ -1,5 +1,6 @@
 package applicative;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class geoZone {
@@ -7,8 +8,8 @@ public class geoZone {
     HashMap<Integer,Double> tempList = new HashMap();
 
     //Constructeur
-    public geoZone(HashMap<Integer, Double> tempList) {
-        this.tempList = tempList;
+    public geoZone() {
+
     }
 
     //Getters & Setters

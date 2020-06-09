@@ -10,7 +10,7 @@ public class fileReader {
     public static void getDataFromCSVFile(ArrayList<Integer> coord, ArrayList<ArrayList<Float>>anomalies ){
 
         try {
-            FileReader file = new FileReader("applicative.tempanomaly_4x4grid.csv");
+            FileReader file = new FileReader("src/applicative/tempanomaly_4x4grid.csv");
             BufferedReader bufRead = new BufferedReader(file);
 
             //read the first line
@@ -32,8 +32,10 @@ public class fileReader {
 
                 //ajout des anomalies dans l'ordre (premiere colonne correspondant à 1880)
                 for (int i=2 ; i<140 ; i++) {
-                    val.add(Float.parseFloat(array[i]));
-                    anomalies.add(val);
+                    if(array[i].equals("NA")==false) {
+                        val.add(Float.parseFloat(array[i]));
+                        anomalies.add(val);
+                    }
                 }
 
                 //envoi de mes datas vers les classes

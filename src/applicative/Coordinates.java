@@ -1,5 +1,7 @@
 package applicative;
 
+import java.util.ArrayList;
+
 public class Coordinates {
     private int lon;
     private int lat;
