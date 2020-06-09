@@ -18,4 +18,6 @@ public class Coordinates {
     public int getLat() {
         return lat;
     }
+
+    //Methodes
 }

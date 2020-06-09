@@ -17,7 +17,6 @@ public class Main {
         ArrayList<ArrayList<Float>> anom = new ArrayList<ArrayList<Float>>();
 
 
-
                 //We start by reading the CSV file
                 fileReader.getDataFromCSVFile(coords, anom);
 

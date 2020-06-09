@@ -15,6 +15,7 @@ public class fileReader {
 
             //read the first line
             String line = bufRead.readLine();
+            line=bufRead.readLine();
 
             //Read the file line by line
             while ( line != null) {
@@ -22,20 +23,20 @@ public class fileReader {
                 String[] array = line.split(",");
 
                     //get the latitude
-                    int id = Integer.parseInt(array[0]);
+                    int lat = Integer.parseInt(array[0]);
 
                     //get the longitudes
                     int lon = Integer.parseInt(array[1],10);
 
                     //envoi de mes datas vers les classes
-                    coord.add(id);
+                    coord.add(lat);
                     coord.add(lon);
 
                 //creation array;
                 ArrayList<Float> val = new ArrayList<Float>();
 
                 //ajout des anomalies dans l'ordre (premiere colonne correspondant à 1880)
-                for (int i=2 ; i<140 ; i++) {
+                for (int i=2 ; i<=142 ; i++) {
                     if(array[i].equals("NA")==false) {
                         val.add(Float.parseFloat(array[i]));
                         anomalies.add(val);
