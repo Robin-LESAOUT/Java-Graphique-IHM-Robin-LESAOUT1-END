@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 
 public class fileReader {
-    public static void getDataFromCSVFile(){
+    public static void getDataFromCSVFile(ArrayList<Integer> coord, ArrayList<ArrayList<Float>>anomalies ){
 
         try {
             FileReader file = new FileReader("applicative.tempanomaly_4x4grid.csv");
@@ -27,12 +27,18 @@ public class fileReader {
                 //get the longitude
                 int lon = Integer.parseInt(array[1]);
 
-                //création array;
+                //creation array;
                 ArrayList<Float> val = new ArrayList<Float>();
 
+                //ajout des anomalies dans l'ordre (premiere colonne correspondant à 1880)
                 for (int i=2 ; i<140 ; i++) {
                     val.add(Float.parseFloat(array[i]));
+                    anomalies.add(val);
                 }
+
+                //envoi de mes datas vers les classes
+                coord.add(lat);
+                coord.add(lon);
 
                 line = bufRead.readLine();
             }
