@@ -8,15 +8,13 @@ public class geoZone {
     HashMap<Integer,Double> tempList = new HashMap();
     ArrayList<Integer> Year = new ArrayList<Integer>();
 
-    public geoZone(ArrayList<ArrayList<Float>> anomal) {
+    public geoZone(ArrayList<Float> anomal) {
         for(int i=1880; i<=2020; i++){
             Year.add(i);
         }
-        for(int i =0; i<anomal.size();i++) {
-            for (int j = 0; j <anomal.get(i).size() ; j++) {
-                tempList.put(Year.get(j),(double)anomal.get(i).get(j));
+            for (int j = 0; j <anomal.size() ; j++) {
+                tempList.put(Year.get(j),(double)anomal.get(j));
             }
-        }
     }
 
     //Getters & Setters

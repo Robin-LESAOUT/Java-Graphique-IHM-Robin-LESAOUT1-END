@@ -12,6 +12,7 @@ public class Coordinates {
         this.lat = lat;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
