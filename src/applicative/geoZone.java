@@ -3,10 +3,11 @@ package applicative;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class geoZone {
     //Attributs
-    HashMap<Integer,Double> tempList = new HashMap();
+    LinkedHashMap<Integer,Double> tempList = new LinkedHashMap();
     ArrayList<Integer> Year = new ArrayList<Integer>();
 
     public geoZone(ArrayList<Float> anomal) {
@@ -20,7 +21,7 @@ public class geoZone {
 
 
     //Getters & Setters
-    public HashMap<Integer, Double> getTempList() {
+    public LinkedHashMap<Integer, Double> getTempList() {
         return tempList;
     }
 }

@@ -1,12 +1,9 @@
 package applicative;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Earth {
-    HashMap<Coordinates,geoZone> zoneList = new HashMap();
+    LinkedHashMap<Coordinates,geoZone> zoneList = new LinkedHashMap();
 
     //Constructor
     public Earth(ArrayList<Integer> coord,ArrayList<ArrayList<Float>> anomalies) {
@@ -21,7 +18,7 @@ public class Earth {
 
     //Methodes
 
-    public HashMap<Coordinates, geoZone> displayAllGeoZone(){
+    public LinkedHashMap<Coordinates, geoZone> displayAllGeoZone(){
 
 
     //test de la lecture des fichiers
@@ -37,7 +34,7 @@ public class Earth {
         return zoneList;
     }
 
-    public HashMap<Coordinates, geoZone> getZoneList() {
+    public LinkedHashMap<Coordinates, geoZone> getZoneList() {
         return zoneList;
     }
 
@@ -64,8 +61,26 @@ public class Earth {
         }
         return min;
     }
-    /*
-    public HashMap<Coordinates,Float>getPYear(){
 
-    };*/
+    public LinkedHashMap<Coordinates,Double> getPYear(int year){
+        LinkedHashMap<Coordinates,Double> array = new LinkedHashMap<Coordinates,Double>();
+        List<String> ByKey = new ArrayList<String>(Collections.singleton(array.keySet().toString()));
+
+        for (Coordinates key : zoneList.keySet()) {
+            if(zoneList.get(key).getTempList().containsKey(year)){
+               array.put(key,zoneList.get(key).getTempList().get(year));
+            }
+            else{
+                System.out.println(" L'année entrée n'est pas la bonne ");
+                break;
+            }
+        }
+        return array;
+    }
+
+    public LinkedHashMap<Integer,Double> getPZone(Coordinates co){
+        LinkedHashMap<Integer,Double> array = new LinkedHashMap<Integer,Double>();
+        array.put(,zoneList.get(co).getTempList().values());
+        return array;
+    }
 }

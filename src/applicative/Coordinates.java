@@ -12,6 +12,12 @@ public class Coordinates {
         this.lat = lat;
     }
 
+    @Override
+    public String toString() {
+        return ""+ lon + lat ;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {
