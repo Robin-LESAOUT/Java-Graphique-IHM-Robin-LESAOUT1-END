@@ -1,6 +1,7 @@
 package applicative;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class geoZone {
@@ -16,6 +17,7 @@ public class geoZone {
                 tempList.put(Year.get(j),(double)anomal.get(j));
             }
     }
+
 
     //Getters & Setters
     public HashMap<Integer, Double> getTempList() {

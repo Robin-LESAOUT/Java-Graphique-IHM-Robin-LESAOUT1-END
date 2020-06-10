@@ -24,13 +24,13 @@ public class fileReader {
 
                     //get the latitude
                     int lat = Integer.parseInt(array[0]);
-
+                    coord.add(lat);
                     //get the longitudes
                     int lon = Integer.parseInt(array[1]);
-
-                    //envoi de mes datas vers les classes
-                    coord.add(lat);
                     coord.add(lon);
+                    //envoi de mes datas vers les classes
+
+
 
                 //creation array;
                 ArrayList<Float> val = new ArrayList<Float>();
