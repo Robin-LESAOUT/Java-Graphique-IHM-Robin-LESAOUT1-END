@@ -9,7 +9,7 @@ public class Earth {
     public Earth(ArrayList<Integer> coord,ArrayList<ArrayList<Float>> anomalies) {
         int j=0;
         for (int i=0; i<anomalies.size();i++) {
-            Coordinates cods = new Coordinates(coord.get(j), coord.get(j+1));
+            Coordinates cods = new Coordinates(coord.get(j+1), coord.get(j));
             j+=2;
             geoZone geoZ = new geoZone(anomalies.get(i));
             zoneList.put(cods,geoZ);
@@ -80,7 +80,12 @@ public class Earth {
 
     public LinkedHashMap<Integer,Double> getPZone(Coordinates co){
         LinkedHashMap<Integer,Double> array = new LinkedHashMap<Integer,Double>();
-        array.put(,zoneList.get(co).getTempList().values());
+        for (Coordinates key : zoneList.keySet()) {
+            if (key.equals(co)) {
+                array=zoneList.get(key).getTempList();
+            }
+        }
+
         return array;
     }
 }
