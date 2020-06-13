@@ -7,17 +7,24 @@ public class Coordinates {
     private int lon;
     private int lat;
 
+    //Constructeur
+
+    /*
+     *   Constructeur de classe qui permet d'initialiser la longitude et la latitude.
+     *   @param lon , lat
+     *
+     */
     public Coordinates(int lon, int lat) {
         this.lon = lon;
         this.lat = lat;
     }
 
+    //Méthodes usuelles
+
     @Override
     public String toString() {
         return ""+ lon + lat ;
     }
-
-
 
     @Override
     public boolean equals(Object o) {
@@ -28,6 +35,7 @@ public class Coordinates {
                 lat == that.lat;
     }
 
+    //Getters
 
     public int getLon() {
         return lon;

@@ -28,9 +28,6 @@ public class fileReader {
                     //get the longitudes
                     int lon = Integer.parseInt(array[1]);
                     coord.add(lon);
-                    //envoi de mes datas vers les classes
-
-
 
                 //creation array;
                 ArrayList<Float> val = new ArrayList<Float>();
@@ -44,7 +41,6 @@ public class fileReader {
                         val.add(Float.NaN);
                     }
                 }
-
                 anomalies.add(val);
                 line = bufRead.readLine();
             }
