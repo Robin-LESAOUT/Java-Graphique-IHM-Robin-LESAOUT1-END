@@ -1,13 +1,5 @@
 package applicative;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class Main {
@@ -22,14 +14,17 @@ public class Main {
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////// TEST //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+          /*
             Earth Terre =new Earth(coords,anom);
             Coordinates co = new Coordinates(-178,-88);
-            //System.out.println(Terre.displayAllGeoZone());
+            Coordinates cor = new Coordinates(154,12);
+            System.out.println(Terre.displayAllGeoZone());
             System.out.println(Terre.valeurMax());
             System.out.println(Terre.valeurMin());
-            //System.out.println(Terre.getPYear(1900));
+            System.out.println(Terre.getPYear(1900));
             System.out.println(Terre.getPZone(co));
-
+            System.out.println(Terre.getPZoneYear(cor,1881));
+            */
         }
     }
 

@@ -34,7 +34,7 @@ public class Earth {
     * @return l'ensemble des zones géographiques d'une planète. (dans une Hashmap)
     *
      */
-    public LinkedHashMap<Coordinates, geoZone> displayAllGeoZone(){
+    public LinkedHashMap<Coordinates, geoZone> displayAllGeoZone(Coordinates co){
         return zoneList;
     }
 
@@ -45,8 +45,8 @@ public class Earth {
      * @return la valeur maximale d'anomalie de temperature des zones géographiques d'une planète.
      *
      */
-    public double valeurMax() {
-       double max=0.0;
+    public Double valeurMax() {
+       Double max=0.0;
         for (Coordinates key : zoneList.keySet()){
             for (int key1 : zoneList.get(key).getTempList().keySet()){
                 if(zoneList.get(key).getTempList().get(key1).doubleValue()>max){
@@ -63,8 +63,8 @@ public class Earth {
      * @return la valeur minimale d'anomalie de temperature des zones géographiques d'une planète.
      *
      */
-    public double valeurMin(){
-        double min=0.0;
+    public Double valeurMin(){
+        Double min=0.0;
         for (Coordinates key : zoneList.keySet()){
             for (int key1 : zoneList.get(key).getTempList().keySet()){
                 if(zoneList.get(key).getTempList().get(key1).doubleValue()<min){
@@ -113,12 +113,25 @@ public class Earth {
             if (key.equals(co)) {
                 array=zoneList.get(key).getTempList();
             }
-            else{
-                System.out.println("Les coordonnées ne correspondent pas. ");
-                break;
-            }
         }
         return array;
+    }
+
+    /*
+     * Permet d'afficher toutes les anomalies pour une coordonée et une année donnée
+     * @param co , year
+     *          Les coordonnées pour laquelle la méthode affiche les anomalies ainsi que l'année
+     * @return L'anomalie pour une coordonnée et une année
+     *
+     */
+    public Double getPZoneYear(Coordinates co , int year){
+        Double res=0.0;
+        for (Coordinates key : zoneList.keySet()) {
+            if (key.equals(co)) {
+                        res = zoneList.get(key).getTempList().get(year).doubleValue();
+            }
+        }
+        return res;
     }
 }
 
