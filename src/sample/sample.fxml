@@ -1,8 +1,104 @@
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<GridPane fx:controller="sample.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
-</GridPane>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="859.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
+           fx:controller="sample.Controller">
+    <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="624.0" prefWidth="307.0">
+            <children>
+                <Button fx:id="Histo" layoutX="9.0" layoutY="24.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="234.0" text="Histogramme/Quadrilatère" />
+                <Separator fx:id="sep1" layoutX="-5.0" layoutY="108.0" prefHeight="9.0" prefWidth="258.0" />
+                <Button fx:id="Play" layoutX="30.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="PLAY" />
+                <Button fx:id="Stop" layoutX="177.0" layoutY="209.0" mnemonicParsing="false" text="STOP" />
+                <Button fx:id="Pause" layoutX="98.0" layoutY="209.0" mnemonicParsing="false" text="PAUSE" />
+                <Slider fx:id="vitesseSlide" layoutX="9.0" layoutY="359.0" prefHeight="25.0" prefWidth="234.0" />
+                <Separator fx:id="sep2" layoutX="-2.0" layoutY="444.0" prefHeight="0.0" prefWidth="252.0" />
+                <Button fx:id="graph" layoutX="8.0" layoutY="491.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="233.0" text="Graphique" />
+                <Label fx:id="Anim" alignment="CENTER" layoutX="9.0" layoutY="141.0" prefHeight="41.0" prefWidth="234.0" text="Animation" />
+                <Label fx:id="VitesseAnim" alignment="CENTER" layoutX="7.0" layoutY="277.0" prefHeight="41.0" prefWidth="234.0" text="Vitesse d'animation" />
+            </children></AnchorPane>
+        <AnchorPane fx:id="SplitPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="600.0">
+            <children>
+                <Slider fx:id="slideAnnee" layoutX="73.0" layoutY="22.0" max="2020.0" min="1880.0" prefHeight="38.0" prefWidth="506.0" showTickLabels="true" showTickMarks="true" />
+                <Label fx:id="lat" alignment="CENTER" layoutX="14.0" layoutY="548.0" prefHeight="25.0" prefWidth="91.0" text="Latitude :" />
+                <Label fx:id="lon" alignment="CENTER" layoutX="328.0" layoutY="548.0" prefHeight="25.0" prefWidth="90.0" text="Longitude : " />
+                <Label fx:id="latVal" alignment="CENTER" layoutX="94.0" layoutY="552.0" prefHeight="17.0" prefWidth="64.0" />
+                <Label fx:id="lonVal" alignment="CENTER" layoutX="418.0" layoutY="552.0" prefHeight="17.0" prefWidth="64.0" />
+                <TextField fx:id="textYear" alignment="CENTER" layoutX="8.0" layoutY="22.0" prefHeight="25.0" prefWidth="52.0" />
+                <VBox fx:id="vBox" layoutX="527.0" layoutY="348.0" prefHeight="200.0" prefWidth="52.0">
+                    <children>
+                        <HBox fx:id="hBox10" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab10" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="32.0" text="10" />
+                                <Rectangle fx:id="rec10" arcHeight="5.0" arcWidth="5.0" fill="#e80a06" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox8" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab8" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="32.0" text="8" />
+                                <Rectangle fx:id="rec8" arcHeight="5.0" arcWidth="5.0" fill="#f03a1f" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox6" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab6" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="32.0" text="6" />
+                                <Rectangle fx:id="rec6" arcHeight="5.0" arcWidth="5.0" fill="#ff6c1f" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox4" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab4" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="32.0" text="4" />
+                                <Rectangle fx:id="rec4" arcHeight="5.0" arcWidth="5.0" fill="#ffa71f" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox2" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab2" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="32.0" text="2" />
+                                <Rectangle fx:id="rec2" arcHeight="5.0" arcWidth="5.0" fill="#e8ff1f" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox22" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab22" alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="32.0" text="-2" />
+                                <Rectangle fx:id="rec22" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox44" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab44" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="32.0" text="-4" />
+                                <Rectangle fx:id="rec44" arcHeight="5.0" arcWidth="5.0" fill="#5bf4ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox66" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab66" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="32.0" text="-6" />
+                                <Rectangle fx:id="rec66" arcHeight="5.0" arcWidth="5.0" fill="#21a1ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox88" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab88" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="32.0" text="-8" />
+                                <Rectangle fx:id="rec88" arcHeight="5.0" arcWidth="5.0" fill="#3d6cf8" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                        <HBox fx:id="hBox100" prefHeight="15.0" prefWidth="52.0">
+                            <children>
+                                <Label fx:id="lab100" alignment="BOTTOM_LEFT" prefHeight="20.0" prefWidth="32.0" text="-10" />
+                                <Rectangle fx:id="rec100" arcHeight="5.0" arcWidth="5.0" fill="#0037ff" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children></AnchorPane>
+    </items>
+</SplitPane>
