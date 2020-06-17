@@ -9,13 +9,12 @@ public class Main {
         ArrayList<ArrayList<Float>> anom = new ArrayList<ArrayList<Float>>();
 
 
-                //We start by reading the CSV file
-                fileReader.getDataFromCSVFile(coords, anom);
+
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////////////////////////////////////////////////////////////////////////////////// TEST //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-          /*
-            Earth Terre =new Earth(coords,anom);
+/*
+            Earth Terre =new Earth();
             Coordinates co = new Coordinates(-178,-88);
             Coordinates cor = new Coordinates(154,12);
             System.out.println(Terre.displayAllGeoZone());
@@ -24,7 +23,7 @@ public class Main {
             System.out.println(Terre.getPYear(1900));
             System.out.println(Terre.getPZone(co));
             System.out.println(Terre.getPZoneYear(cor,1881));
-            */
+*/
         }
     }
 

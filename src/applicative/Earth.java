@@ -1,17 +1,20 @@
 package applicative;
 
+import java.io.FileReader;
 import java.util.*;
 
 public class Earth {
     LinkedHashMap<Coordinates,geoZone> zoneList = new LinkedHashMap();
-
+    ArrayList<Integer> coord = new ArrayList<Integer>();
+    ArrayList<ArrayList<Float>> anomalies = new ArrayList<ArrayList<Float>>();
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
      *   @param coord , anomalies
      *
      */
     //Constructor
-    public Earth(ArrayList<Integer> coord,ArrayList<ArrayList<Float>> anomalies) {
+    public Earth() {
+        fileReader.getDataFromCSVFile(coord, anomalies);
         int j=0;
         for (int i=0; i<anomalies.size();i++) {
             Coordinates cods = new Coordinates(coord.get(j+1), coord.get(j));
@@ -34,7 +37,7 @@ public class Earth {
     * @return l'ensemble des zones géographiques d'une planète. (dans une Hashmap)
     *
      */
-    public LinkedHashMap<Coordinates, geoZone> displayAllGeoZone(Coordinates co){
+    public LinkedHashMap<Coordinates, geoZone> displayAllGeoZone(){
         return zoneList;
     }
 

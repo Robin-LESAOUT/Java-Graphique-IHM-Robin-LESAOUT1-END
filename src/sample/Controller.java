@@ -1,5 +1,7 @@
 package sample;
 
+import applicative.Earth;
+import applicative.fileReader;
 import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
 import javafx.application.Application;
@@ -7,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
@@ -24,9 +27,12 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    @FXML
     private static final float TEXTURE_LAT_OFFSET = -0.2f;
     private static final float TEXTURE_LON_OFFSET = 2.8f;
+
+    @FXML
+    private AnchorPane SplitPane;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +41,7 @@ public class Controller implements Initializable {
 
                 //Create a Pane et graph scene root for the 3D content
                 Group root3D = new Group();
-                Pane pane3D = new Pane(root3D);
+                Earth Terre = new Earth();
 
                 // Load geometry
                 ObjModelImporter objImporter = new ObjModelImporter();
@@ -50,31 +56,63 @@ public class Controller implements Initializable {
                 root3D.getChildren().add(earth);
 
 
-                // Draw city on the earth
-                displayTown(root3D,"Brest", 48.447911f,-4.418539f);
-                displayTown(root3D,"Marseille", 43.435555f,5.213611f);
-                displayTown(root3D,"New York", 40.639751f,-73.778925f);
-                displayTown(root3D,"Cape Town",  -33.964806f,18.601667f);
-                displayTown(root3D,"Istanbul", 48.447911f,28.814606f);
-                displayTown(root3D,"Reykjavik", 64.13f,-21.940556f);
-                displayTown(root3D,"Singapore", 1.350189f,103.994433f);
-                displayTown(root3D,"Seoul", 37.469075f,126.450517f);
+                //Creation des Materials
 
-                PhongMaterial material1 = new PhongMaterial();
-                Color green = Color.rgb(0,255,0,0.001);
-                material1.setDiffuseColor(green);
-                material1.setSpecularColor(green);
+                PhongMaterial material10 = new PhongMaterial();
+                Color mat10 = Color.rgb(232,10,6,0.001);
+                material10.setDiffuseColor(mat10);
+                material10.setSpecularColor(mat10);
+
+                PhongMaterial material8 = new PhongMaterial();
+                Color mat8 = Color.rgb(240,58,31,0.001);
+                material8.setDiffuseColor(mat8);
+                material8.setSpecularColor(mat8);
+
+                PhongMaterial material6 = new PhongMaterial();
+                Color mat6 = Color.rgb(255,108,31,0.001);
+                material6.setDiffuseColor(mat6);
+                material6.setSpecularColor(mat6);
+
+                PhongMaterial material4 = new PhongMaterial();
+                Color mat4 = Color.rgb(240,167,31,0.001);
+                material4.setDiffuseColor(mat4);
+                material4.setSpecularColor(mat4);
 
                 PhongMaterial material2 = new PhongMaterial();
-                Color red = Color.rgb(255,0,0,0.001);
-                material2.setDiffuseColor(red);
-                material2.setSpecularColor(red);
+                Color mat2 = Color.rgb(232,255,31,0.001);
+                material2.setDiffuseColor(mat2);
+                material2.setSpecularColor(mat2);
 
-                dessinQuad(root3D,material1,material2);
+                PhongMaterial material22 = new PhongMaterial();
+                Color mat22 = Color.rgb(255,255,255,0.001);
+                material22.setDiffuseColor(mat22);
+                material22.setSpecularColor(mat22);
+
+                PhongMaterial material44 = new PhongMaterial();
+                Color mat44 = Color.rgb(91,244,255,0.001);
+                material44.setDiffuseColor(mat44);
+                material44.setSpecularColor(mat44);
+
+                PhongMaterial material66 = new PhongMaterial();
+                Color mat66 = Color.rgb(33,161,255,0.001);
+                material66.setDiffuseColor(mat66);
+                material66.setSpecularColor(mat66);
+
+                PhongMaterial material88 = new PhongMaterial();
+                Color mat88 = Color.rgb(61,108,248,0.001);
+                material88.setDiffuseColor(mat88);
+                material88.setSpecularColor(mat88);
+
+                PhongMaterial material100 = new PhongMaterial();
+                Color mat100 = Color.rgb(0,55,255,0.001);
+                material100.setDiffuseColor(mat100);
+                material100.setSpecularColor(mat100);
+
+                //dessinQuad(root3D,material1,material2);
 
                 // Add a camera group
                 PerspectiveCamera camera = new PerspectiveCamera(true);
-                new CameraManager(camera, pane3D, root3D);
+                new CameraManager(camera, SplitPane, root3D);
 
                 // Add point light
                 PointLight light = new PointLight(Color.WHITE);
@@ -90,10 +128,9 @@ public class Controller implements Initializable {
                 root3D.getChildren().add(ambientLight);
 
                 // Create scene
-                Scene scene = new Scene(pane3D, 600, 600, true);
-                scene.setCamera(camera);
-                scene.setFill(Color.GREY);
-                scene.setFill(Color.gray(0.2));
+                SubScene subscene = new SubScene(root3D, 600, 600,true, SceneAntialiasing.BALANCED);
+                subscene.setCamera(camera);
+                SplitPane.getChildren().addAll(subscene);
             }
 
 
@@ -116,6 +153,7 @@ public class Controller implements Initializable {
 
                 return line;
             }
+
             public void dessinQuad(Group parent,PhongMaterial mat1, PhongMaterial mat2){
                 int compt=1;
                 for (int lat = -90; lat < 90; lat += 2) {
@@ -146,7 +184,7 @@ public class Controller implements Initializable {
                     }
                 }
             }
-
+/*
             public void displayTown(Group parent, String name, float latitude, float longitude){
                 Point3D lieu = geoCoordTo3dCoord(latitude,longitude,1);
                 Sphere sphere = new Sphere(0.01);
@@ -155,7 +193,7 @@ public class Controller implements Initializable {
                 sphere.setTranslateY(lieu.getY());
                 sphere.setTranslateZ(lieu.getZ());
                 parent.getChildren().add(sphere);
-            }
+            }*/
 
             public static Point3D geoCoordTo3dCoord(float lat, float lon, float radius){
                 float lat_coord= lat+TEXTURE_LAT_OFFSET;

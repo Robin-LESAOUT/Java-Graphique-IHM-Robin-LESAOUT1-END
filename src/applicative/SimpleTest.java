@@ -29,7 +29,7 @@ public class SimpleTest {
             e.printStackTrace();
         }
 
-        resourceManager=new Earth(coords,anom);
+        resourceManager=new Earth();
 
     }
 
