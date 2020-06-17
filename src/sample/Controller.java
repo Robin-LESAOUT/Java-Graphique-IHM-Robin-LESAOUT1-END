@@ -157,7 +157,7 @@ public class Controller implements Initializable {
 
             public void dessinQuad(int year, Group parent,PhongMaterial mat10, PhongMaterial mat8 , PhongMaterial mat6 , PhongMaterial mat4 ,PhongMaterial mat2 , PhongMaterial mat22, PhongMaterial mat44, PhongMaterial mat66, PhongMaterial mat88, PhongMaterial mat100){
                 for (int i=0; i<Terre.getPYear(year).size(); i++) {
-                    PhongMaterial currentMaterial = mat100;
+                    PhongMaterial currentMaterial = mat10;
                     Coordinates cods = new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i));
                     for(Coordinates key : Terre.getPYear(year).keySet()){
                         if(key.equals(cods)) {
@@ -191,9 +191,6 @@ public class Controller implements Initializable {
                             else if (Terre.getPYear(year).get(key)>-10 && Terre.getPYear(year).get(key)<-8.0) {
                                 currentMaterial = mat100;
                             }
-                        }
-                        else{
-                            currentMaterial = mat100;
                         }
                     }
                     Point3D topRight = geoCoordTo3dCoord( Terre.getLat().get(i)+ 2, Terre.getLon().get(i), 1.01f);
