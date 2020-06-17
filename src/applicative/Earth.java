@@ -7,6 +7,9 @@ public class Earth {
     LinkedHashMap<Coordinates,geoZone> zoneList = new LinkedHashMap();
     ArrayList<Integer> coord = new ArrayList<Integer>();
     ArrayList<ArrayList<Float>> anomalies = new ArrayList<ArrayList<Float>>();
+    ArrayList<Integer> lat = new ArrayList<Integer>();
+    ArrayList<Integer> lon = new ArrayList<Integer>();
+
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
      *   @param coord , anomalies
@@ -18,6 +21,8 @@ public class Earth {
         int j=0;
         for (int i=0; i<anomalies.size();i++) {
             Coordinates cods = new Coordinates(coord.get(j+1), coord.get(j));
+            lon.add(coord.get(j+1));
+            lat.add(coord.get(j));
             j+=2;
             geoZone geoZ = new geoZone(anomalies.get(i));
             zoneList.put(cods,geoZ);
@@ -28,6 +33,14 @@ public class Earth {
 
     public LinkedHashMap<Coordinates, geoZone> getZoneList() {
         return zoneList;
+    }
+
+    public ArrayList<Integer> getLat() {
+        return lat;
+    }
+
+    public ArrayList<Integer> getLon() {
+        return lon;
     }
 
     //Methodes

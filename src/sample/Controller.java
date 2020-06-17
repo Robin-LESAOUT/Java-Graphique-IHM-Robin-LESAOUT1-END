@@ -1,5 +1,6 @@
 package sample;
 
+import applicative.Coordinates;
 import applicative.Earth;
 import applicative.fileReader;
 import com.interactivemesh.jfx.importer.ImportException;
@@ -29,6 +30,7 @@ public class Controller implements Initializable {
 
     private static final float TEXTURE_LAT_OFFSET = -0.2f;
     private static final float TEXTURE_LON_OFFSET = 2.8f;
+    Earth Terre = new Earth();
 
     @FXML
     private AnchorPane SplitPane;
@@ -41,7 +43,6 @@ public class Controller implements Initializable {
 
                 //Create a Pane et graph scene root for the 3D content
                 Group root3D = new Group();
-                Earth Terre = new Earth();
 
                 // Load geometry
                 ObjModelImporter objImporter = new ObjModelImporter();
@@ -108,19 +109,19 @@ public class Controller implements Initializable {
                 material100.setDiffuseColor(mat100);
                 material100.setSpecularColor(mat100);
 
-                //dessinQuad(root3D,material1,material2);
+                dessinQuad(2010,root3D,material10,material8,material6,material4,material2,material22,material44,material66,material88,material100);
 
                 // Add a camera group
                 PerspectiveCamera camera = new PerspectiveCamera(true);
                 new CameraManager(camera, SplitPane, root3D);
 
-                // Add point light
+               /* // Add point light
                 PointLight light = new PointLight(Color.WHITE);
                 light.setTranslateX(-180);
                 light.setTranslateY(-90);
                 light.setTranslateZ(-120);
                 light.getScope().addAll(root3D);
-                root3D.getChildren().add(light);
+                root3D.getChildren().add(light); */
 
                 // Add ambient light
                 AmbientLight ambientLight = new AmbientLight(Color.WHITE);
@@ -154,46 +155,55 @@ public class Controller implements Initializable {
                 return line;
             }
 
-            public void dessinQuad(Group parent,PhongMaterial mat1, PhongMaterial mat2){
-                int compt=1;
-                for (int lat = -90; lat < 90; lat += 2) {
-                    PhongMaterial currentMaterial;
-                    for (int lon = -180; lon < 180; lon += 2) {
-                        if (lat % 4 == 0) {
-                            if (compt%2==0){
-                                currentMaterial = mat1;
+            public void dessinQuad(int year, Group parent,PhongMaterial mat10, PhongMaterial mat8 , PhongMaterial mat6 , PhongMaterial mat4 ,PhongMaterial mat2 , PhongMaterial mat22, PhongMaterial mat44, PhongMaterial mat66, PhongMaterial mat88, PhongMaterial mat100){
+                for (int i=0; i<Terre.getPYear(year).size(); i++) {
+                    PhongMaterial currentMaterial = mat100;
+                    Coordinates cods = new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i));
+                    for(Coordinates key : Terre.getPYear(year).keySet()){
+                        if(key.equals(cods)) {
+                            if(Terre.getPYear(year).get(key)>8.0){
+                                currentMaterial = mat10;
                             }
-                            else{
+                            else if(Terre.getPYear(year).get(key)>6.0 && Terre.getPYear(year).get((key))<8.0){
+                                currentMaterial = mat8;
+                            }
+                            else if(Terre.getPYear(year).get(key)>4.0 && Terre.getPYear(year).get((key))<6.0){
+                                currentMaterial = mat6;
+                            }
+                            else if(Terre.getPYear(year).get(key) >2.0 && Terre.getPYear(year).get((key)) <4.0){
+                                currentMaterial = mat4;
+                            }
+                            else if(Terre.getPYear(year).get(key)>0.0 && Terre.getPYear(year).get(key)<2.0){
                                 currentMaterial = mat2;
                             }
-                        } else {
-                            if (compt%2!=0){
-                                currentMaterial = mat1;
+                            else if(Terre.getPYear(year).get(key)>-2.0 && Terre.getPYear(year).get(key)<0.0){
+                                currentMaterial = mat22;
                             }
-                            else {
-                                currentMaterial = mat2;
+                            else if(Terre.getPYear(year).get(key)>-4.0 && Terre.getPYear(year).get(key)<-2.0){
+                                currentMaterial = mat44;
+                            }
+                            else if(Terre.getPYear(year).get(key)>-6.0 && Terre.getPYear(year).get(key)<-4.0){
+                                currentMaterial = mat66;
+                            }
+                            else if(Terre.getPYear(year).get(key)>-8.0 && Terre.getPYear(year).get(key)<-6){
+                                currentMaterial = mat88;
+                            }
+                            else if (Terre.getPYear(year).get(key)>-10 && Terre.getPYear(year).get(key)<-8.0) {
+                                currentMaterial = mat100;
                             }
                         }
-
-                        Point3D topRight = geoCoordTo3dCoord(lat + 2, lon, 1.01f);
-                        Point3D topLeft = geoCoordTo3dCoord(lat, lon, 1.01f);
-                        Point3D bottomRight = geoCoordTo3dCoord(lat + 2, lon + 2, 1.01f);
-                        Point3D bottomLeft = geoCoordTo3dCoord(lat, lon + 2, 1.01f);
-                        addQuadrilateral(parent, topRight, bottomRight, topLeft, bottomLeft, currentMaterial);
-                        compt++;
+                        else{
+                            currentMaterial = mat100;
+                        }
                     }
+                    Point3D topRight = geoCoordTo3dCoord( Terre.getLat().get(i)+ 2, Terre.getLon().get(i), 1.01f);
+                    Point3D topLeft = geoCoordTo3dCoord(Terre.getLat().get(i), Terre.getLon().get(i), 1.01f);
+                    Point3D bottomRight = geoCoordTo3dCoord(Terre.getLat().get(i) + 2, Terre.getLon().get(i) + 2, 1.01f);
+                    Point3D bottomLeft = geoCoordTo3dCoord(Terre.getLat().get(i), Terre.getLon().get(i) + 2, 1.01f);
+                    addQuadrilateral(parent, topRight, bottomRight, topLeft, bottomLeft, currentMaterial);
                 }
             }
-/*
-            public void displayTown(Group parent, String name, float latitude, float longitude){
-                Point3D lieu = geoCoordTo3dCoord(latitude,longitude,1);
-                Sphere sphere = new Sphere(0.01);
-                //sphere.setStyle("-fx-background-color:red");
-                sphere.setTranslateX(lieu.getX());
-                sphere.setTranslateY(lieu.getY());
-                sphere.setTranslateZ(lieu.getZ());
-                parent.getChildren().add(sphere);
-            }*/
+
 
             public static Point3D geoCoordTo3dCoord(float lat, float lon, float radius){
                 float lat_coord= lat+TEXTURE_LAT_OFFSET;
