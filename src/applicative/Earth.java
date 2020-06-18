@@ -2,6 +2,7 @@ package applicative;
 
 
 
+import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 
 import java.io.FileReader;
@@ -14,6 +15,7 @@ public class Earth {
     ArrayList<Integer> lat = new ArrayList<Integer>();
     ArrayList<Integer> lon = new ArrayList<Integer>();
     LinkedHashMap<Coordinates, MeshView> meshList = new LinkedHashMap();
+    LinkedHashMap<Coordinates, Cylinder> cylinderList = new LinkedHashMap();
     int Anneechoisie=1880;
 
     /*
@@ -59,6 +61,10 @@ public class Earth {
 
     public void setAnneechoisie(int anneechoisie) {
         Anneechoisie = anneechoisie;
+    }
+
+    public LinkedHashMap<Coordinates, Cylinder> getCylinderList() {
+        return cylinderList;
     }
 
     //Methodes

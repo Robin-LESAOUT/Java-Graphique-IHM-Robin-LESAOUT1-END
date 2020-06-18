@@ -43,6 +43,7 @@ public class Controller implements Initializable {
     Earth Terre = new Earth();
     Group root3D = new Group();
     Group quadri = new Group();
+    Group histo = new Group();
 
     //FXML
 
@@ -68,9 +69,12 @@ public class Controller implements Initializable {
                 Group earth = new Group(meshViews);
                 root3D.getChildren().add(earth);
 
-                creerQuadri();
-                dessinQuad();
+               // creerQuadri();
+               // dessinQuad();
+                creerCylindre();
+                dessinHisto();
                 root3D.getChildren().add(quadri);
+                root3D.getChildren().add(histo);
 
                 // Add a camera group
                 PerspectiveCamera camera = new PerspectiveCamera(true);
@@ -98,7 +102,7 @@ public class Controller implements Initializable {
                             textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                             Terre.setAnneechoisie((int) slideAnnee.getValue());
                             creerQuadri();
-                            dessinQuad();
+                            dessinQuad1();
                         }
                 });
 
@@ -109,7 +113,7 @@ public class Controller implements Initializable {
                             Terre.setAnneechoisie(Integer.parseInt(textYear.getText()));
                             slideAnnee.setValue((Double.parseDouble(textYear.getText())));
                             creerQuadri();
-                            dessinQuad();
+                            dessinQuad1();
                         }catch(Exception ex){ }
                     }
                 });
@@ -153,6 +157,92 @@ public class Controller implements Initializable {
                 }
             }
 
+            public void dessinQuad1(){
+                Group quadri = new Group();
+                int year = Terre.getAnneechoisie();
+                Color mat = Color.GREY;
+                for (int lat=-88;lat<=88;lat+=4) {
+                    for (int lon=-178;lon<=178;lon+=4) {
+                        PhongMaterial currentMaterial = new PhongMaterial();
+                        Coordinates cods = new Coordinates(lon,lat);
+                        Double valeur = Terre.getPYear(year).get(cods);
+                        MeshView mesh = Terre.getMeshList().get(cods);
+                        if (mesh != null) {
+                            if (valeur > 8.0) {
+                                mat = Color.rgb(232, 10, 6, 0.001);
+                            } else if (valeur > 6.0 && valeur < 8.0) {
+                                mat = Color.rgb(240, 58, 31, 0.001);
+                            } else if (valeur > 4.0 && valeur < 6.0) {
+                                mat = Color.rgb(255, 108, 31, 0.001);
+                            } else if (valeur > 2.0 && valeur < 4.0) {
+                                mat = Color.rgb(240, 167, 31, 0.001);
+                            } else if (valeur > 0.0 && valeur < 2.0) {
+                                mat = Color.rgb(232, 255, 31, 0.001);
+                            } else if (valeur > -2.0 && valeur < 0.0) {
+                                mat = Color.rgb(66, 255, 3, 0.001);
+                            } else if (valeur > -4.0 && valeur < -2.0) {
+                                mat = Color.rgb(91, 244, 255, 0.001);
+                            } else if (valeur > -6.0 && valeur < -4.0) {
+                                mat = Color.rgb(33, 161, 255, 0.001);
+                            } else if (valeur > -8.0 && valeur < -6) {
+                                mat = Color.rgb(61, 108, 248, 0.001);
+                            } else if (valeur > -10 && valeur < -8.0) {
+                                mat = Color.rgb(0, 55, 255, 0.001);
+                            }
+                            currentMaterial.setDiffuseColor(mat);
+                            currentMaterial.setSpecularColor(mat);
+                            mesh.setMaterial(currentMaterial);
+                        }
+                    }
+                }
+            }
+
+            public void dessinHisto(){
+                Group histo = new Group();
+                int year = Terre.getAnneechoisie();
+                Color mat = Color.GREY;
+                for (int lat=-88;lat<=88;lat+=4) {
+                    for (int lon=-178;lon<=178;lon+=4) {
+                        PhongMaterial currentMaterial = new PhongMaterial();
+                        Coordinates cods = new Coordinates(lon,lat);
+                        Double valeur = Terre.getPYear(year).get(cods);
+                        Cylinder cylindre = Terre.getCylinderList().get(cods);
+                        if (cylindre != null) {
+                            if (valeur > 8.0) {
+                                mat = Color.rgb(232, 10, 6, 0.001);
+                                cylindre.setHeight(1.50);
+                            } else if (valeur > 6.0 && valeur < 8.0) {
+                                mat = Color.rgb(240, 58, 31, 0.001);
+                                cylindre.setHeight(1.40);
+                            } else if (valeur > 4.0 && valeur < 6.0) {
+                                mat = Color.rgb(255, 108, 31, 0.001);
+                                cylindre.setHeight(1.30);
+                            } else if (valeur > 2.0 && valeur < 4.0) {
+                                mat = Color.rgb(240, 167, 31, 0.001);
+                                cylindre.setHeight(1.20);
+                            } else if (valeur > 0.0 && valeur < 2.0) {
+                                mat = Color.rgb(232, 255, 31, 0.001);
+                            } else if (valeur > -2.0 && valeur < 0.0) {
+                                mat = Color.rgb(66, 255, 3, 0.001);
+                                cylindre.setHeight(1.10);
+                            } else if (valeur > -4.0 && valeur < -2.0) {
+                                mat = Color.rgb(91, 244, 255, 0.001);
+                            } else if (valeur > -6.0 && valeur < -4.0) {
+                                mat = Color.rgb(33, 161, 255, 0.001);
+                            } else if (valeur > -8.0 && valeur < -6) {
+                                mat = Color.rgb(61, 108, 248, 0.001);
+                            } else if (valeur > -10 && valeur < -8.0) {
+                                mat = Color.rgb(0, 55, 255, 0.001);
+                            }
+                            currentMaterial.setDiffuseColor(mat);
+                            currentMaterial.setSpecularColor(mat);
+                            cylindre.setRadius(0.02);
+                            cylindre.setMaterial(currentMaterial);
+                        }
+                    }
+                }
+            }
+
             public void creerQuadri(){
             int year =Terre.getAnneechoisie();
                 for (int i=0; i<Terre.getPYear(year).size(); i++) {
@@ -164,6 +254,18 @@ public class Controller implements Initializable {
                     Point3D bottomRight = geoCoordTo3dCoord(Terre.getLat().get(i) - 2, Terre.getLon().get(i) + 2, 1.01f);
                     Point3D bottomLeft = geoCoordTo3dCoord(Terre.getLat().get(i) - 2, Terre.getLon().get(i) - 2, 1.01f);
                     addQuadrilateral(new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i)),quadri, topRight, bottomRight, topLeft, bottomLeft, material);
+                }
+            }
+
+            public void creerCylindre(){
+                int year =Terre.getAnneechoisie();
+                for (int i=0; i<Terre.getPYear(year).size(); i++) {
+                    PhongMaterial material = new PhongMaterial();
+                    material.setDiffuseColor(Color.GREY);
+                    material.setSpecularColor(Color.GREY);
+                    Point3D origine = new Point3D(0,0,0);
+                    Point3D target = geoCoordTo3dCoord(Terre.getLat().get(i),Terre.getLon().get(i),1.01f);
+                    createLine(new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i)),histo,origine,target, material);
                 }
             }
 
@@ -180,7 +282,7 @@ public class Controller implements Initializable {
             }
 
             // From Rahel LÃ¼thy : https://netzwerg.ch/blog/2015/03/22/javafx-3d-line/
-            public Cylinder createLine(Point3D origin, Point3D target) {
+            public Cylinder createLine(Coordinates co, Group parent, Point3D origin, Point3D target, PhongMaterial material) {
                 Point3D yAxis = new Point3D(0, 1, 0);
                 Point3D diff = target.subtract(origin);
                 double height = diff.magnitude();
@@ -196,6 +298,9 @@ public class Controller implements Initializable {
 
                 line.getTransforms().addAll(moveToMidpoint, rotateAroundCenter);
 
+                line.setMaterial(material);
+                Terre.getCylinderList().put(co,line);
+                parent.getChildren().add(line);
                 return line;
             }
 
