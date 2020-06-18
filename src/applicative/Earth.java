@@ -1,5 +1,9 @@
 package applicative;
 
+
+
+import javafx.scene.shape.MeshView;
+
 import java.io.FileReader;
 import java.util.*;
 
@@ -9,6 +13,8 @@ public class Earth {
     ArrayList<ArrayList<Float>> anomalies = new ArrayList<ArrayList<Float>>();
     ArrayList<Integer> lat = new ArrayList<Integer>();
     ArrayList<Integer> lon = new ArrayList<Integer>();
+    LinkedHashMap<Coordinates, MeshView> meshList = new LinkedHashMap();
+    int Anneechoisie=1880;
 
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
@@ -41,6 +47,18 @@ public class Earth {
 
     public ArrayList<Integer> getLon() {
         return lon;
+    }
+
+    public int getAnneechoisie() {
+        return Anneechoisie;
+    }
+
+    public LinkedHashMap<Coordinates, MeshView> getMeshList() {
+        return meshList;
+    }
+
+    public void setAnneechoisie(int anneechoisie) {
+        Anneechoisie = anneechoisie;
     }
 
     //Methodes
@@ -101,7 +119,6 @@ public class Earth {
      */
     public LinkedHashMap<Coordinates,Double> getPYear(int year){
         LinkedHashMap<Coordinates,Double> array = new LinkedHashMap<Coordinates,Double>();
-        List<String> ByKey = new ArrayList<String>(Collections.singleton(array.keySet().toString()));
 
         for (Coordinates key : zoneList.keySet()) {
             if(zoneList.get(key).getTempList().containsKey(year)){

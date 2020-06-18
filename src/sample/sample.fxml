@@ -70,7 +70,7 @@
                         <HBox fx:id="hBox22" prefHeight="15.0" prefWidth="52.0">
                             <children>
                                 <Label fx:id="lab22" alignment="BASELINE_LEFT" prefHeight="20.0" prefWidth="32.0" text="-2" />
-                                <Rectangle fx:id="rec22" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                                <Rectangle fx:id="rec22" arcHeight="5.0" arcWidth="5.0" fill="#218002" height="20.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
                             </children>
                         </HBox>
                         <HBox fx:id="hBox44" prefHeight="15.0" prefWidth="52.0">

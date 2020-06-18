@@ -35,6 +35,11 @@ public class Coordinates {
                 lat == that.lat;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(lon, lat);
+    }
+
     //Getters
 
     public int getLon() {
