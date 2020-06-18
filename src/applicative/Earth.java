@@ -16,6 +16,7 @@ public class Earth {
     ArrayList<Integer> lon = new ArrayList<Integer>();
     LinkedHashMap<Coordinates, MeshView> meshList = new LinkedHashMap();
     LinkedHashMap<Coordinates, Cylinder> cylinderList = new LinkedHashMap();
+    boolean isQuadri = true;
     int Anneechoisie=1880;
 
     /*
@@ -65,6 +66,14 @@ public class Earth {
 
     public LinkedHashMap<Coordinates, Cylinder> getCylinderList() {
         return cylinderList;
+    }
+
+    public boolean isQuadri() {
+        return isQuadri;
+    }
+
+    public void setQuadri(boolean quadri) {
+        isQuadri = quadri;
     }
 
     //Methodes
@@ -148,11 +157,7 @@ public class Earth {
      */
     public LinkedHashMap<Integer,Double> getPZone(Coordinates co){
         LinkedHashMap<Integer,Double> array = new LinkedHashMap<Integer,Double>();
-        for (Coordinates key : zoneList.keySet()) {
-            if (key.equals(co)) {
-                array=zoneList.get(key).getTempList();
-            }
-        }
+                array=zoneList.get(co).getTempList();
         return array;
     }
 
@@ -165,11 +170,7 @@ public class Earth {
      */
     public Double getPZoneYear(Coordinates co , int year){
         Double res=0.0;
-        for (Coordinates key : zoneList.keySet()) {
-            if (key.equals(co)) {
-                        res = zoneList.get(key).getTempList().get(year).doubleValue();
-            }
-        }
+            res = zoneList.get(co).getTempList().get(year).doubleValue();
         return res;
     }
 }
