@@ -5,6 +5,7 @@ import applicative.Earth;
 import applicative.fileReader;
 import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -56,6 +57,12 @@ public class Controller implements Initializable {
     private Slider slideAnnee;
     @FXML
     private Button Histo;
+    @FXML
+    private Button Play;
+    @FXML
+    private Button Pause;
+    @FXML
+    private Button Stop;
 
    @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -72,13 +79,6 @@ public class Controller implements Initializable {
        Group earth = new Group(meshViews);
        root3D.getChildren().add(earth);
 
-       creerQuadri();
-       dessinQuad();
-       creerCylindre();
-       //dessinHisto();
-       root3D.getChildren().add(quadri);
-       //root3D.getChildren().add(histo);
-
        // Add a camera group
        PerspectiveCamera camera = new PerspectiveCamera(true);
        new CameraManager(camera, SplitPane, root3D);
@@ -93,11 +93,23 @@ public class Controller implements Initializable {
        subscene.setCamera(camera);
        SplitPane.getChildren().addAll(subscene);
 
+       //Affichage de la scène de départ
+
+       creerQuadri();
+       dessinQuad1();
+       creerCylindre();
+       //dessinHisto();
+       root3D.getChildren().add(quadri);
+       //root3D.getChildren().add(histo);
+
+
        // sliders
        slideAnnee.setValue(1880);
 
        //textfields
        textYear.setText("1880");
+
+       //Interaction avec les boutons
 
        Histo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
            @Override
@@ -142,7 +154,7 @@ public class Controller implements Initializable {
                             Terre.setAnneechoisie(Integer.parseInt(textYear.getText()));
                             slideAnnee.setValue((Double.parseDouble(textYear.getText())));
                             creerQuadri();
-                            dessinQuad();
+                            dessinQuad1();
                         }else {
                             textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                             Terre.setAnneechoisie((int) slideAnnee.getValue());
@@ -154,6 +166,50 @@ public class Controller implements Initializable {
                 }
             });
 
+            //Animation
+           AnimationTimer animation = new AnimationTimer() {
+               @Override
+               public void handle(long currentNanoTime) {
+                   int year=Terre.getAnneechoisie();
+                   slideAnnee.setValue(year);
+
+                   if(Terre.isQuadri() && year<2021 ){
+                       System.out.println(year);
+                       slideAnnee.setValue(year);
+                       root3D.getChildren().remove(quadri);
+                       creerQuadri();
+                       dessinQuad1();
+                       root3D.getChildren().add(quadri);
+                       year ++;
+                       Terre.setAnneechoisie(year);
+                   }
+                   if(!Terre.isQuadri() && year<2021 ){
+                       slideAnnee.setValue(year);
+                       root3D.getChildren().remove(histo);
+                       creerCylindre();
+                       dessinHisto();
+                       root3D.getChildren().add(histo);
+                       year ++;
+                       Terre.setAnneechoisie(year);
+                   }
+                   if(year>=2021){
+                       this.stop();
+                       year = 1880;
+                       Terre.setAnneechoisie(year);
+                   }
+               }
+           };
+
+           //Bouton associé à l'animation
+           Play.setOnAction(event -> { animation.start(); });
+           Pause.setOnAction(event -> { animation.stop(); });
+           Stop.setOnAction(event -> {
+               animation.stop();
+               Terre.setAnneechoisie(1880);
+               textYear.setText("1880");
+               slideAnnee.setValue((Double.parseDouble(textYear.getText())));
+
+       });
      }
 
         public void dessinQuad(){
@@ -244,21 +300,22 @@ public class Controller implements Initializable {
                     Coordinates cods = new Coordinates(lon,lat);
                     Double valeur = Terre.getPZoneYear(cods,year);
                     Cylinder cylindre = Terre.getCylinderList().get(cods);
-                    float min=(float)Math.abs(Terre.valeurMin());
                     if (cylindre != null) {
-                        float height=1.335f;
-                        double multiplicateur=0.05;
-                        height= Math.round(height*100)/100;
                         if (valeur > 8.0) {
                             mat = Color.rgb(232, 10, 6, 0.001);
+                            cylindre.setHeight(1.50);
                         } else if (valeur > 6.0 && valeur < 8.0) {
                             mat = Color.rgb(240, 58, 31, 0.001);
+                            cylindre.setHeight(1.40);
                         } else if (valeur > 4.0 && valeur < 6.0) {
                             mat = Color.rgb(255, 108, 31, 0.001);
+                            cylindre.setHeight(1.30);
                         } else if (valeur > 2.0 && valeur < 4.0) {
                             mat = Color.rgb(240, 167, 31, 0.001);
+                            cylindre.setHeight(1.20);
                         } else if (valeur > 0.0 && valeur < 2.0) {
                             mat = Color.rgb(232, 255, 31, 0.001);
+                            cylindre.setHeight(1.10);
                         } else if (valeur > -2.0 && valeur < 0.0) {
                             mat = Color.rgb(66, 255, 3, 0.001);
                         } else if (valeur > -4.0 && valeur < -2.0) {
@@ -270,8 +327,6 @@ public class Controller implements Initializable {
                         } else if (valeur > -10 && valeur < -8.0) {
                             mat = Color.rgb(0, 55, 255, 0.001);
                         }
-
-                        cylindre.setHeight(height*multiplicateur);
                         currentMaterial.setDiffuseColor(mat);
                         currentMaterial.setSpecularColor(mat);
                         cylindre.setRadius(0.02);
