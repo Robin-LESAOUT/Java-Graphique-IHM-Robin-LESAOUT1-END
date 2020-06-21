@@ -18,6 +18,7 @@ public class Earth {
     LinkedHashMap<Coordinates, Cylinder> cylinderList = new LinkedHashMap();
     boolean isQuadri = true;
     int Anneechoisie=1880;
+    double valVitesse=1;
 
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
@@ -71,9 +72,16 @@ public class Earth {
     public boolean isQuadri() {
         return isQuadri;
     }
-
     public void setQuadri(boolean quadri) {
         isQuadri = quadri;
+    }
+
+    public void setValVitesse(double valVitesse) {
+        this.valVitesse = valVitesse;
+    }
+
+    public double getValVitesse() {
+        return valVitesse;
     }
 
     //Methodes

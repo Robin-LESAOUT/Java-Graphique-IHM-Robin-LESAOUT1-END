@@ -13,10 +13,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.PickResult;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -29,7 +31,6 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
 
 import java.awt.*;
 import java.net.Inet4Address;
@@ -63,6 +64,16 @@ public class Controller implements Initializable {
     private Button Pause;
     @FXML
     private Button Stop;
+    @FXML
+    private RadioButton quart;
+    @FXML
+    private RadioButton moit;
+    @FXML
+    private RadioButton fois1;
+    @FXML
+    private RadioButton fois2;
+
+
 
    @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -96,7 +107,7 @@ public class Controller implements Initializable {
        //Affichage de la scène de départ
 
        creerQuadri();
-       dessinQuad1();
+       dessinQuad();
        creerCylindre();
        //dessinHisto();
        root3D.getChildren().add(quadri);
@@ -111,22 +122,22 @@ public class Controller implements Initializable {
 
        //Interaction avec les boutons
 
-       Histo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-           @Override
-           public void handle(MouseEvent event) {
-               if(Terre.isQuadri()){
-                   root3D.getChildren().remove(quadri);
-                   root3D.getChildren().add(histo);
-                   Terre.setQuadri(false);
-                   dessinHisto();
-               }else{
-                   root3D.getChildren().remove(histo);
-                   root3D.getChildren().add(quadri);
-                   Terre.setQuadri(true);
-                   dessinQuad();
+           Histo.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+               @Override
+               public void handle(MouseEvent event) {
+                   if(Terre.isQuadri()){
+                       root3D.getChildren().remove(quadri);
+                       root3D.getChildren().add(histo);
+                       Terre.setQuadri(false);
+                       dessinHisto();
+                   }else{
+                       root3D.getChildren().remove(histo);
+                       root3D.getChildren().add(quadri);
+                       Terre.setQuadri(true);
+                       dessinQuad();
+                   }
                }
-           }
-       });
+           });
 
 
            slideAnnee.addEventHandler(MouseEvent.MOUSE_RELEASED, new EventHandler<MouseEvent>() {
@@ -144,7 +155,6 @@ public class Controller implements Initializable {
                    }
                }
            });
-
 
             textYear.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -166,37 +176,73 @@ public class Controller implements Initializable {
                 }
             });
 
-            //Animation
+            fois2.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    Terre.setValVitesse(2);
+                }
+
+           });
+           fois1.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+               @Override
+               public void handle(MouseEvent event){
+                   Terre.setValVitesse(1);
+               }
+
+           });
+
+           moit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+               @Override
+               public void handle(MouseEvent event){
+                   Terre.setValVitesse(0.5);
+               }
+
+           });
+
+           quart.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+               @Override
+               public void handle(MouseEvent event){
+                   Terre.setValVitesse(0.25);
+               }
+
+           });
+
+
+
+       //Animation
            AnimationTimer animation = new AnimationTimer() {
                @Override
                public void handle(long currentNanoTime) {
                    int year=Terre.getAnneechoisie();
                    slideAnnee.setValue(year);
+                   int val = 100000;
+                   val=((int)Math.round(val/Terre.getValVitesse()));
+                    for(int i =0; i<val;  i++ ){
 
+                    }
                    if(Terre.isQuadri() && year<2021 ){
                        System.out.println(year);
                        slideAnnee.setValue(year);
+                       textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                        root3D.getChildren().remove(quadri);
                        creerQuadri();
                        dessinQuad1();
                        root3D.getChildren().add(quadri);
-                       year ++;
-                       Terre.setAnneechoisie(year);
-                   }
-                   if(!Terre.isQuadri() && year<2021 ){
+                   } else if(!Terre.isQuadri() && year<2021 ){
+                       System.out.println(year);
                        slideAnnee.setValue(year);
+                       textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                        root3D.getChildren().remove(histo);
                        creerCylindre();
                        dessinHisto();
                        root3D.getChildren().add(histo);
-                       year ++;
-                       Terre.setAnneechoisie(year);
-                   }
-                   if(year>=2021){
+                   } else if(year>=2021){
                        this.stop();
                        year = 1880;
                        Terre.setAnneechoisie(year);
                    }
+                   year ++;
+                   Terre.setAnneechoisie(year);
                }
            };
 
@@ -222,7 +268,7 @@ public class Controller implements Initializable {
                 Double valeur = Terre.getPZoneYear(cods,year);
                 MeshView mesh = Terre.getMeshList().get(cods);
                 if(mesh != null) {
-                    if (valeur > 8.0) {
+                    if (valeur  > 8.0 && valeur  < 9.0) {
                         mat = Color.rgb(232, 10, 6, 0.001);
                     } else if (valeur  > 6.0 && valeur  < 8.0) {
                         mat = Color.rgb(240, 58, 31, 0.001);
@@ -236,12 +282,8 @@ public class Controller implements Initializable {
                         mat = Color.rgb(66, 255, 3, 0.001);
                     } else if (valeur  > -4.0 && valeur  < -2.0) {
                         mat = Color.rgb(91, 244, 255, 0.001);
-                    } else if (valeur  > -6.0 && valeur  < -4.0) {
+                    } else if (valeur  > -6.5 && valeur  < -4.0) {
                         mat = Color.rgb(33, 161, 255, 0.001);
-                    } else if (valeur  > -8.0 && valeur  < -6) {
-                        mat = Color.rgb(61, 108, 248, 0.001);
-                    } else if (valeur  > -10 && valeur  < -8.0) {
-                        mat = Color.rgb(0, 55, 255, 0.001);
                     }
                     currentMaterial.setDiffuseColor(mat);
                     currentMaterial.setSpecularColor(mat);
@@ -261,26 +303,22 @@ public class Controller implements Initializable {
                     Double valeur = Terre.getPZoneYear(cods,year);
                     MeshView mesh = Terre.getMeshList().get(cods);
                     if (mesh != null) {
-                        if (valeur > 8.0) {
+                        if (valeur  > 8.0 && valeur  < 9.0) {
                             mat = Color.rgb(232, 10, 6, 0.001);
-                        } else if (valeur > 6.0 && valeur < 8.0) {
+                        } else if (valeur  > 6.0 && valeur  < 8.0) {
                             mat = Color.rgb(240, 58, 31, 0.001);
-                        } else if (valeur > 4.0 && valeur < 6.0) {
+                        } else if (valeur  > 4.0 && valeur  < 6.0) {
                             mat = Color.rgb(255, 108, 31, 0.001);
-                        } else if (valeur > 2.0 && valeur < 4.0) {
+                        } else if (valeur  > 2.0 && valeur  < 4.0) {
                             mat = Color.rgb(240, 167, 31, 0.001);
-                        } else if (valeur > 0.0 && valeur < 2.0) {
+                        } else if (valeur  > 0.0 && valeur  < 2.0) {
                             mat = Color.rgb(232, 255, 31, 0.001);
-                        } else if (valeur > -2.0 && valeur < 0.0) {
+                        } else if (valeur  > -2.0 && valeur  < 0.0) {
                             mat = Color.rgb(66, 255, 3, 0.001);
-                        } else if (valeur > -4.0 && valeur < -2.0) {
+                        } else if (valeur  > -4.0 && valeur  < -2.0) {
                             mat = Color.rgb(91, 244, 255, 0.001);
-                        } else if (valeur > -6.0 && valeur < -4.0) {
+                        } else if (valeur  > -6.5 && valeur  < -4.0) {
                             mat = Color.rgb(33, 161, 255, 0.001);
-                        } else if (valeur > -8.0 && valeur < -6) {
-                            mat = Color.rgb(61, 108, 248, 0.001);
-                        } else if (valeur > -10 && valeur < -8.0) {
-                            mat = Color.rgb(0, 55, 255, 0.001);
                         }
                         currentMaterial.setDiffuseColor(mat);
                         currentMaterial.setSpecularColor(mat);
@@ -301,7 +339,7 @@ public class Controller implements Initializable {
                     Double valeur = Terre.getPZoneYear(cods,year);
                     Cylinder cylindre = Terre.getCylinderList().get(cods);
                     if (cylindre != null) {
-                        if (valeur > 8.0) {
+                        if (valeur > 8.0 && valeur  < 9.0) {
                             mat = Color.rgb(232, 10, 6, 0.001);
                             cylindre.setHeight(1.50);
                         } else if (valeur > 6.0 && valeur < 8.0) {
@@ -316,16 +354,12 @@ public class Controller implements Initializable {
                         } else if (valeur > 0.0 && valeur < 2.0) {
                             mat = Color.rgb(232, 255, 31, 0.001);
                             cylindre.setHeight(1.10);
-                        } else if (valeur > -2.0 && valeur < 0.0) {
+                        } else if (valeur  > -2.0 && valeur  < 0.0) {
                             mat = Color.rgb(66, 255, 3, 0.001);
-                        } else if (valeur > -4.0 && valeur < -2.0) {
+                        } else if (valeur  > -4.0 && valeur  < -2.0) {
                             mat = Color.rgb(91, 244, 255, 0.001);
-                        } else if (valeur > -6.0 && valeur < -4.0) {
+                        } else if (valeur  > -6.5 && valeur  < -4.0) {
                             mat = Color.rgb(33, 161, 255, 0.001);
-                        } else if (valeur > -8.0 && valeur < -6) {
-                            mat = Color.rgb(61, 108, 248, 0.001);
-                        } else if (valeur > -10 && valeur < -8.0) {
-                            mat = Color.rgb(0, 55, 255, 0.001);
                         }
                         currentMaterial.setDiffuseColor(mat);
                         currentMaterial.setSpecularColor(mat);
