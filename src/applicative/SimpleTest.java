@@ -74,7 +74,7 @@ public class SimpleTest {
         Object[]res=resourceManager.getPZone(new Coordinates(154,12)).values().toArray();
         assertEquals(res.length,temperatureAnomalies12x154.length);
         for (int i=0;i<res.length;i++) {
-            assertEquals((Double)res[i],(Double)temperatureAnomalies12x154[i]);
+            assertEquals(res[i],temperatureAnomalies12x154[i]);
         }
     }
 
@@ -86,7 +86,7 @@ public class SimpleTest {
         Object[]res=resourceManager.getPYear(1952).values().toArray();
         assertEquals(res.length,temperatureAnomalies1952.length);
         for (int i=0;i<res.length;i++) {
-            assertEquals((Double)res[i],(Double)temperatureAnomalies1952[i]);
+            assertEquals(res[i],temperatureAnomalies1952[i]);
         }
     }
 }

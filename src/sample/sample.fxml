@@ -1,39 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
-<?import javafx.scene.control.ToggleGroup?>
-<SplitPane fx:id="pane3D" dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="859.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
-           fx:controller="sample.Controller">
+<SplitPane fx:id="pane3D" dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="892.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="624.0" prefWidth="307.0">
             <children>
                 <Button fx:id="Histo" layoutX="9.0" layoutY="24.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="234.0" text="Histogramme/Quadrilatère" />
                 <Separator fx:id="sep1" layoutX="-5.0" layoutY="108.0" prefHeight="9.0" prefWidth="258.0" />
-                <Button fx:id="Play" layoutX="30.0" layoutY="209.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="PLAY" />
-                <Button fx:id="Stop" layoutX="177.0" layoutY="209.0" mnemonicParsing="false" text="STOP" />
-                <Button fx:id="Pause" layoutX="98.0" layoutY="209.0" mnemonicParsing="false" text="PAUSE" />
-                <Separator fx:id="sep2" layoutX="-2.0" layoutY="444.0" prefHeight="0.0" prefWidth="252.0" />
-                <Button fx:id="graph" layoutX="8.0" layoutY="491.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="233.0" text="Graphique" />
-                <Label fx:id="Anim" alignment="CENTER" layoutX="9.0" layoutY="141.0" prefHeight="41.0" prefWidth="234.0" text="Animation" />
-                <Label fx:id="VitesseAnim" alignment="CENTER" layoutX="7.0" layoutY="277.0" prefHeight="41.0" prefWidth="234.0" text="Vitesse d'animation" />
-                <RadioButton fx:id="fois2" layoutX="14.0" layoutY="318.0" mnemonicParsing="false" text="X 2">
+                <Button fx:id="Play" layoutX="24.0" layoutY="158.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="PLAY" />
+                <Button fx:id="Stop" layoutX="169.0" layoutY="158.0" mnemonicParsing="false" text="STOP" />
+                <Button fx:id="Pause" layoutX="95.0" layoutY="158.0" mnemonicParsing="false" text="PAUSE" />
+                <Separator fx:id="sep2" layoutX="9.0" layoutY="351.0" prefHeight="0.0" prefWidth="252.0" />
+                <Label fx:id="Anim" alignment="CENTER" layoutX="9.0" layoutY="108.0" prefHeight="41.0" prefWidth="234.0" text="Animation" />
+                <Label fx:id="VitesseAnim" alignment="CENTER" layoutX="9.0" layoutY="191.0" prefHeight="41.0" prefWidth="234.0" text="Vitesse d'animation" />
+                <RadioButton fx:id="fois2" layoutX="20.0" layoutY="232.0" mnemonicParsing="false" text="X 2">
                     <toggleGroup>
                         <ToggleGroup fx:id="grp" />
                     </toggleGroup></RadioButton>
-                <RadioButton fx:id="fois1" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" selected="true" text="X1" toggleGroup="$grp" />
-                <RadioButton fx:id="moit" layoutX="14.0" layoutY="381.0" mnemonicParsing="false" text="X 0.5" toggleGroup="$grp" />
-                <RadioButton fx:id="quart" layoutX="14.0" layoutY="414.0" mnemonicParsing="false" text="X 0.25" toggleGroup="$grp" />
+                <RadioButton fx:id="fois1" layoutX="20.0" layoutY="261.0" mnemonicParsing="false" selected="true" text="X1" toggleGroup="$grp" />
+                <RadioButton fx:id="moit" layoutX="20.0" layoutY="289.0" mnemonicParsing="false" text="X 0.5" toggleGroup="$grp" />
+                <RadioButton fx:id="quart" layoutX="20.0" layoutY="321.0" mnemonicParsing="false" text="X 0.25" toggleGroup="$grp" />
+                <LineChart fx:id="lineChart" layoutX="4.0" layoutY="354.0" prefHeight="241.0" prefWidth="258.0">
+                    <xAxis>
+                        <NumberAxis autoRanging="false" lowerBound="-6.5" side="BOTTOM" tickLabelGap="0.0" tickLength="10.0" upperBound="9.0" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis autoRanging="false" lowerBound="-6.5" side="LEFT" tickLabelGap="0.0" tickLength="10.0" upperBound="9.0"  />
+                    </yAxis>
+                </LineChart>
             </children></AnchorPane>
         <AnchorPane fx:id="SplitPane" minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="600.0">
             <children>

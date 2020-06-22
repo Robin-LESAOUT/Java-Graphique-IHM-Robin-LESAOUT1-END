@@ -98,7 +98,7 @@ public class CameraManager {
                 }
             }
         });
-       /*mainRoot.setOnScroll(new EventHandler<ScrollEvent>() {
+       mainRoot.setOnScroll(new EventHandler<ScrollEvent>() {
             @Override
             public void handle(ScrollEvent event) {
                 double modifier = 1.0;
@@ -114,7 +114,7 @@ public class CameraManager {
                 if (newZ > CAMERA_MIN_DISTANCE) newZ = CAMERA_MIN_DISTANCE;
                 camera.setTranslateZ(newZ);
             }
-        }); */
+        });
     }
 
     private void handleKeyboard(Node mainRoot, final Node root) {

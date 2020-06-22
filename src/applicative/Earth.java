@@ -19,6 +19,8 @@ public class Earth {
     boolean isQuadri = true;
     int Anneechoisie=1880;
     double valVitesse=1;
+    int latView;
+    int lonView;
 
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
@@ -84,6 +86,21 @@ public class Earth {
         return valVitesse;
     }
 
+    public void setLatView(int latView) {
+        this.latView = latView;
+    }
+
+    public void setLonView(int lonView) {
+        this.lonView = lonView;
+    }
+
+    public int getLatView() {
+        return latView;
+    }
+
+    public int getLonView() {
+        return lonView;
+    }
     //Methodes
 
     /*
