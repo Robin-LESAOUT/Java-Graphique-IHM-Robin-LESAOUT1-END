@@ -5,6 +5,7 @@ import applicative.Earth;
 import applicative.fileReader;
 import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
+import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -28,6 +29,7 @@ import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -146,11 +148,11 @@ public class Controller implements Initializable {
                    Terre.setAnneechoisie((int) slideAnnee.getValue());
                    if(Terre.isQuadri()) {
                        textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
-                       creerQuadri();
+                       //creerQuadri();
                        dessinQuad();
                    }else {
                        textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
-                       creerCylindre();
+                       //creerCylindre();
                        dessinHisto();
                    }
                }
@@ -163,12 +165,12 @@ public class Controller implements Initializable {
                         if(Terre.isQuadri()) {
                             Terre.setAnneechoisie(Integer.parseInt(textYear.getText()));
                             slideAnnee.setValue((Double.parseDouble(textYear.getText())));
-                            creerQuadri();
+                            //creerQuadri();
                             dessinQuad1();
                         }else {
                             textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                             Terre.setAnneechoisie((int) slideAnnee.getValue());
-                            creerCylindre();
+                            //creerCylindre();
                             dessinHisto();
                         }
                     } catch (Exception ex) {
@@ -207,6 +209,7 @@ public class Controller implements Initializable {
 
            });
 
+         //PickResult(Node node, Point3D point, double distance, int face, Point3D normal, Point2D texCoord) pick = new PickResult();
 
 
        //Animation
@@ -215,17 +218,20 @@ public class Controller implements Initializable {
                public void handle(long currentNanoTime) {
                    int year=Terre.getAnneechoisie();
                    slideAnnee.setValue(year);
+                   //Tentative de réglage de vitesse
+                   /*
                    int val = 100000;
                    val=((int)Math.round(val/Terre.getValVitesse()));
                     for(int i =0; i<val;  i++ ){
 
                     }
+                   */
                    if(Terre.isQuadri() && year<2021 ){
                        System.out.println(year);
                        slideAnnee.setValue(year);
                        textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                        root3D.getChildren().remove(quadri);
-                       creerQuadri();
+                       //creerQuadri();
                        dessinQuad1();
                        root3D.getChildren().add(quadri);
                    } else if(!Terre.isQuadri() && year<2021 ){
@@ -233,7 +239,7 @@ public class Controller implements Initializable {
                        slideAnnee.setValue(year);
                        textYear.setText((int) Math.round(slideAnnee.getValue()) + "");
                        root3D.getChildren().remove(histo);
-                       creerCylindre();
+                       //creerCylindre();
                        dessinHisto();
                        root3D.getChildren().add(histo);
                    } else if(year>=2021){
@@ -241,7 +247,7 @@ public class Controller implements Initializable {
                        year = 1880;
                        Terre.setAnneechoisie(year);
                    }
-                   year ++;
+                   year += (int)Math.round(Terre.getValVitesse())*2;
                    Terre.setAnneechoisie(year);
                }
            };
@@ -261,7 +267,7 @@ public class Controller implements Initializable {
         public void dessinQuad(){
             Group quadri = new Group();
             int year = Terre.getAnneechoisie();
-            Color mat = Color.GREY;
+            Color mat = Color.BROWN;
             for (int i=0; i<Terre.getPYear(year).size(); i++) {
                 PhongMaterial currentMaterial = new PhongMaterial();
                 Coordinates cods = new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i));
@@ -295,7 +301,7 @@ public class Controller implements Initializable {
         public void dessinQuad1(){
             Group quadri = new Group();
             int year = Terre.getAnneechoisie();
-            Color mat = Color.GREY;
+            Color mat = Color.BROWN;
             for (int lat=-88;lat<=88;lat+=4) {
                 for (int lon=-178;lon<=178;lon+=4) {
                     PhongMaterial currentMaterial = new PhongMaterial();
@@ -331,7 +337,7 @@ public class Controller implements Initializable {
         public void dessinHisto(){
             Group histo = new Group();
             int year = Terre.getAnneechoisie();
-            Color mat = Color.GREY;
+            Color mat = Color.BROWN;
             for (int lat=-88;lat<=88;lat+=4) {
                 for (int lon=-178;lon<=178;lon+=4) {
                     PhongMaterial currentMaterial = new PhongMaterial();
@@ -340,26 +346,34 @@ public class Controller implements Initializable {
                     Cylinder cylindre = Terre.getCylinderList().get(cods);
                     if (cylindre != null) {
                         if (valeur > 8.0 && valeur  < 9.0) {
-                            mat = Color.rgb(232, 10, 6, 0.001);
-                            cylindre.setHeight(1.50);
+                            mat = Color.rgb(232, 10, 6, 1);
+                            cylindre.setHeight(valeur * 0.5);
+                            //cylindre.setHeight(1.50);
                         } else if (valeur > 6.0 && valeur < 8.0) {
-                            mat = Color.rgb(240, 58, 31, 0.001);
-                            cylindre.setHeight(1.40);
+                            mat = Color.rgb(240, 58, 31, 1);
+                            cylindre.setHeight(valeur * 0.5);
+                            //cylindre.setHeight(1.40);
                         } else if (valeur > 4.0 && valeur < 6.0) {
-                            mat = Color.rgb(255, 108, 31, 0.001);
-                            cylindre.setHeight(1.30);
+                            mat = Color.rgb(255, 108, 31, 1);
+                            cylindre.setHeight((double)valeur * 0.5);
+                            //cylindre.setHeight(1.30);
                         } else if (valeur > 2.0 && valeur < 4.0) {
-                            mat = Color.rgb(240, 167, 31, 0.001);
-                            cylindre.setHeight(1.20);
+                            mat = Color.rgb(240, 167, 31, 1);
+                            cylindre.setHeight((double)valeur * 0.5);
+                            //cylindre.setHeight(1.20);
                         } else if (valeur > 0.0 && valeur < 2.0) {
-                            mat = Color.rgb(232, 255, 31, 0.001);
-                            cylindre.setHeight(1.10);
+                            mat = Color.rgb(232, 255, 31, 1);
+                            cylindre.setHeight(valeur * 0.5);
+                            //cylindre.setHeight(1.10);
                         } else if (valeur  > -2.0 && valeur  < 0.0) {
-                            mat = Color.rgb(66, 255, 3, 0.001);
+                            mat = Color.rgb(66, 255, 3, 1);
+                            cylindre.setHeight(valeur * -0.5);
                         } else if (valeur  > -4.0 && valeur  < -2.0) {
-                            mat = Color.rgb(91, 244, 255, 0.001);
+                            mat = Color.rgb(91, 244, 255, 1);
+                            cylindre.setHeight(valeur * -0.5);
                         } else if (valeur  > -6.5 && valeur  < -4.0) {
-                            mat = Color.rgb(33, 161, 255, 0.001);
+                            mat = Color.rgb(33, 161, 255, 1);
+                            cylindre.setHeight(valeur * -0.5);
                         }
                         currentMaterial.setDiffuseColor(mat);
                         currentMaterial.setSpecularColor(mat);
@@ -390,8 +404,8 @@ public class Controller implements Initializable {
                 PhongMaterial material = new PhongMaterial();
                 material.setDiffuseColor(Color.GREY);
                 material.setSpecularColor(Color.GREY);
-                Point3D origine = new Point3D(0,0,0);
-                Point3D target = geoCoordTo3dCoord(Terre.getLat().get(i),Terre.getLon().get(i),1.01f);
+                Point3D origine = geoCoordTo3dCoord(Terre.getLat().get(i), Terre.getLon().get(i),1f);
+                Point3D target = geoCoordTo3dCoord(Terre.getLat().get(i),Terre.getLon().get(i),1.1f);
                 createLine(new Coordinates(Terre.getLon().get(i),Terre.getLat().get(i)),histo,origine,target, material);
             }
         }
