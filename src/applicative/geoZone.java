@@ -31,4 +31,9 @@ public class geoZone {
     public LinkedHashMap<Integer, Double> getTempList() {
         return tempList;
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

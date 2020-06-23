@@ -37,7 +37,7 @@
                 <RadioButton fx:id="quart" layoutX="20.0" layoutY="321.0" mnemonicParsing="false" text="X 0.25" toggleGroup="$grp" />
                 <LineChart fx:id="lineChart" layoutX="4.0" layoutY="354.0" prefHeight="241.0" prefWidth="258.0">
                     <xAxis>
-                        <NumberAxis autoRanging="false" lowerBound="-6.5" side="BOTTOM" tickLabelGap="0.0" tickLength="10.0" upperBound="9.0" />
+                        <NumberAxis autoRanging="false" lowerBound="1880" side="BOTTOM" tickLabelGap="0.0" tickLength="10.0" upperBound="2020" />
                     </xAxis>
                     <yAxis>
                         <NumberAxis autoRanging="false" lowerBound="-6.5" side="LEFT" tickLabelGap="0.0" tickLength="10.0" upperBound="9.0"  />

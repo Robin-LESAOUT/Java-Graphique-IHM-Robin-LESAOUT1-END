@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Point3D;
 import javafx.scene.*;
 import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +28,7 @@ import javafx.scene.shape.TriangleMesh;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -201,12 +203,14 @@ public class Controller implements Initializable {
            root3D.addEventHandler (MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
                     @Override
                     public void handle(MouseEvent event){
+                        Number temp;
                         PickResult pick = event.getPickResult();
                         Point3D pick_point3D = pick.getIntersectedPoint();
                         cursorToCoords(pick,Terre);
                         //ArrayList<Float> array = coord3DToGeoCoord(pick_point3D);
                         //float lat = array.get(0);
                         //float lon = array.get(1);
+
                         Terre.setLatView((Terre.getLatView()/4)*4);
                         if(Terre.getLonView() <0){
                             Terre.setLonView((Terre.getLonView()/4)*4 - 2);
@@ -214,10 +218,26 @@ public class Controller implements Initializable {
                         else{
                             Terre.setLonView((Terre.getLonView()/4)*4 + 2);
                         }
+
                         latVal.setText(Terre.getLatView()+"");
                         lonVal.setText(Terre.getLonView()+"");
 
+                        Coordinates co = new Coordinates(Terre.getLonView(),Terre.getLatView());
+                        lineChart.getData().clear();
+                        XYChart.Series<Number,Number> series = new XYChart.Series();
+
+                        for (int key : Terre.getPZone(co).keySet()) {
+                            temp = Terre.getPZone(co).get(key).doubleValue();
+                           // System.out.println(key);
+                            //  System.out.println(temp);
+                            series.getData().add(new XYChart.Data<Number,Number>(key, temp));
+                        }
+
+                        //System.out.println(series.getData());
                         lineChart.setTitle("Graph des anomalies");
+                        lineChart.setLegendVisible(false);
+                        lineChart.setCreateSymbols(false);
+                        lineChart.getData().add(series);
                     }
                 });
 

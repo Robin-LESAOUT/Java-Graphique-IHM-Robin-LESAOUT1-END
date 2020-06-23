@@ -182,9 +182,7 @@ public class Earth {
      *
      */
     public LinkedHashMap<Integer,Double> getPZone(Coordinates co){
-        LinkedHashMap<Integer,Double> array = new LinkedHashMap<Integer,Double>();
-                array=zoneList.get(co).getTempList();
-        return array;
+        return zoneList.get(co).getTempList();
     }
 
     /*
