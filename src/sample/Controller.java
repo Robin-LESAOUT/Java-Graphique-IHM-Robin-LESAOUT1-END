@@ -2,14 +2,9 @@ package sample;
 
 import applicative.Coordinates;
 import applicative.Earth;
-import applicative.fileReader;
 import com.interactivemesh.jfx.importer.ImportException;
 import com.interactivemesh.jfx.importer.obj.ObjModelImporter;
-import com.sun.javafx.geom.Point2D;
-import com.sun.javafx.scene.paint.GradientUtils;
 import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,28 +19,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
-import javafx.scene.shape.Sphere;
 import javafx.scene.shape.TriangleMesh;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
-import javafx.stage.Stage;
-
-import java.awt.*;
-import java.net.Inet4Address;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    //attributs
+    //Attributs
 
     private static final float TEXTURE_LAT_OFFSET = -0.2f;
     private static final float TEXTURE_LON_OFFSET = 2.8f;
@@ -87,7 +73,6 @@ public class Controller implements Initializable {
 
 
 
-
    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -117,7 +102,7 @@ public class Controller implements Initializable {
        subscene.setCamera(camera);
        SplitPane.getChildren().addAll(subscene);
 
-       //Affichage de la scène de départ
+       //Affichage de la scène de départ avec des quadrilatères
 
        creerQuadri();
        dessinQuad();
@@ -284,6 +269,12 @@ public class Controller implements Initializable {
        });
      }
 
+        /*
+         * Modifie les couleurs des quadrilatères crée par la méthode creerQuadri pour les faire se concorder avec la légende et les valeurs du modèle.
+         * Parcours toute les longitdues et latitudes et permet de modifier les couleurs des quadrilateres.
+         * Utilise la fonction getPZoneYear du modèle
+         *
+         */
         public void dessinQuad(){
             Group quadri = new Group();
             int year = Terre.getAnneechoisie();
@@ -322,6 +313,12 @@ public class Controller implements Initializable {
             }
         }
 
+        /*
+         * Modifie les couleurs et la hateur des cylindres en fonction de leur valeur crée par la méthode creerCylindre pour les faire se concorder avec la légende et les valeurs du modèle.
+         * Parcours toute les longitdues et latitudes et permet de modifier les couleurs des cylindres.
+         * Utilise la fonction getPZoneYear du modèle
+         *
+         */
         public void dessinHisto(){
             //Group histo = new Group();
             int year = Terre.getAnneechoisie();
@@ -378,6 +375,12 @@ public class Controller implements Initializable {
             }
         }
 
+        /*
+         * Permet de créer les quadrilatères sur le globe avec la fonction addQuadrilateral.
+         * utilise la fonction geoCoordTo3dCoord pour avoir des points 3D depuis les coordonnées du modèle.
+         * initialise un PhongMaterial
+         *
+         */
         public void creerQuadri(){
         int year =Terre.getAnneechoisie();
             for (int i=0; i<Terre.getPYear(year).size(); i++) {
@@ -392,6 +395,12 @@ public class Controller implements Initializable {
             }
         }
 
+        /*
+         * Permet de créer les cylindres sur le globe avec la fonction createLine.
+         * utilise la fonction geoCoordTo3dCoord pour avoir des points 3D depuis les coordonnées du modèle.
+         * initialise un PhongMaterial
+         *
+         */
         public void creerCylindre(){
             int year =Terre.getAnneechoisie();
             for (int i=0; i<Terre.getPYear(year).size(); i++) {
@@ -404,6 +413,12 @@ public class Controller implements Initializable {
             }
         }
 
+    /*
+     * Permet de passer du pick result à une latitude et une longitude (4 par 4 pour coller avec le modèle).
+     * Les valeurs de latitude et longitude sont directement renvoyées dans le modèle.
+     * @param res, mod
+     *
+     */
         public static void cursorToCoords(PickResult res, Earth mod)
         {
             Point3D coords = res.getIntersectedPoint();

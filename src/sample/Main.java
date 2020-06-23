@@ -11,7 +11,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Anomalies de température sur la Terre de 1880 à 2020");
+        primaryStage.setTitle("Global Warming 3D");
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
     }

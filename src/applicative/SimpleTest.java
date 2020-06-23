@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-
-import java.util.ArrayList;
-
-
 public class SimpleTest {
 
     ArrayList<Integer> coords = new ArrayList<Integer>();

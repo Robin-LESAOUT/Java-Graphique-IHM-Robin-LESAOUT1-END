@@ -4,23 +4,22 @@ package applicative;
 
 import javafx.scene.shape.Cylinder;
 import javafx.scene.shape.MeshView;
-
-import java.io.FileReader;
 import java.util.*;
 
 public class Earth {
     LinkedHashMap<Coordinates,geoZone> zoneList = new LinkedHashMap();
-    ArrayList<Integer> coord = new ArrayList<Integer>();
-    ArrayList<ArrayList<Float>> anomalies = new ArrayList<ArrayList<Float>>();
-    ArrayList<Integer> lat = new ArrayList<Integer>();
-    ArrayList<Integer> lon = new ArrayList<Integer>();
     LinkedHashMap<Coordinates, MeshView> meshList = new LinkedHashMap();
     LinkedHashMap<Coordinates, Cylinder> cylinderList = new LinkedHashMap();
+    ArrayList<Integer> coord = new ArrayList<Integer>();
+    ArrayList<Integer> lat = new ArrayList<Integer>();
+    ArrayList<Integer> lon = new ArrayList<Integer>();
+    ArrayList<ArrayList<Float>> anomalies = new ArrayList<ArrayList<Float>>();
     boolean isQuadri = true;
     int Anneechoisie=1880;
-    double valVitesse=1;
     int latView;
     int lonView;
+    double valVitesse=1;
+
 
     /*
      *   Constructeur de classe qui permet de créer les différents objets du modèle.
@@ -74,6 +73,7 @@ public class Earth {
     public boolean isQuadri() {
         return isQuadri;
     }
+
     public void setQuadri(boolean quadri) {
         isQuadri = quadri;
     }
@@ -101,6 +101,7 @@ public class Earth {
     public int getLonView() {
         return lonView;
     }
+
     //Methodes
 
     /*

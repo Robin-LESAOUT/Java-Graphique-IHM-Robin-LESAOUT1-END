@@ -1,6 +1,5 @@
 package applicative;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Coordinates {
@@ -49,6 +48,4 @@ public class Coordinates {
     public int getLat() {
         return lat;
     }
-
-    //Methodes
 }
